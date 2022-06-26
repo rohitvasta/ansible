@@ -1,10 +1,10 @@
----#Playbook to install apache server on dev using linux
- - hosts: dev
-   become: yes
-   tasks:
-       - name: Install apche on dev
-         action: yum name=httpd state=present
-       - name: Copy index.html to dev server
-         action: copy src='index.html' dest='/var/www/html/'
-       - name: Start httpd
-         action: service name=httpd state=started        
+---
+  - hosts: dev
+    become: yes
+    tasks:
+      - name: Install packages
+        action: yum name=httpd state=present
+      - name: Start Apache server 
+        action: service name=httpd state=started enabled=True
+      - name: Deploy static website
+        action: copy src=index.html dest=/var/www/html/
