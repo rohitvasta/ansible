@@ -1,6 +1,6 @@
 ---#Playbook to install apache server on dev using linux
  - hosts: dev
-   become: true
+   become: True
    tasks:
         - name: Install apche on dev
           action: yum name=httpd state=present
