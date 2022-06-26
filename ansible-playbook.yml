@@ -1,18 +1,12 @@
----
-- hosts: dev 
-  become: yes
-  tasks:
-    - name: Install packages
-      yum:
-        name: "httpd"
-        state: "present"
-    - name: Start Apache server
-      service:
-        name: httpd
-        state: started
-        enabled: True
-    - name: Deploy static website
-      copy:
-        src: index.html
-        dest: /var/www/html/
-...
+---#Playbook to install apache server on dev using linux
+ - hosts: dev
+   user: ec2-user
+   become: true
+   connection: ssh
+   tasks:
+       - name: Install apche on dev
+         action: yum name=httpd state=present
+       - name: Copy index.html to dev server
+         action: copy src='index.html' dest='/var/www/html/'
+       - name: Start httpd
+         action: service name=httpd state=started        
